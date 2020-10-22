@@ -13,7 +13,8 @@
       </button>
 
       <mat-menu #menuCategorias="matMenu">
-        <button mat-menu-item *ngFor="let categoria of categorias">{{categoria}}</button>
+        <button mat-menu-item *ngFor="let categoria of categorias"
+                (click)="filtrarPorCategoria(categoria)">{{categoria}}</button>
       </mat-menu>
 
 
@@ -21,12 +22,13 @@
               [matMenuTriggerFor]="menuProveedores" *ngIf="proveedores.length > 0">
         <mat-icon>groups</mat-icon>
       </button>
+
+      <mat-menu #menuProveedores="matMenu">
+        <button mat-menu-item *ngFor="let proveedor of proveedores"
+                (click)="filtrarPorProveedor(proveedor)">{{proveedor}}</button>
+      </mat-menu>
       <button mat-button class="ml-auto" (click)="agregarMaterial()">Agregar material</button>
     </mat-toolbar>
-
-    <mat-menu #menuProveedores="matMenu">
-      <button mat-menu-item *ngFor="let proveedor of proveedores">{{proveedor}}</button>
-    </mat-menu>
 
     <div class="container-fluid d-flex align-items-center justify-content-center cargando" *ngIf="cargando">
       <mat-spinner></mat-spinner>
@@ -40,6 +42,8 @@
         </button>
       </div>
     </div>
+
+    <button mat-button class="mb-4" (click)="reiniciarFiltros()" *ngIf="hayFiltros">Eliminar filtros</button>
 
     <div class="row" *ngIf="hayContenido && !cargando">
       <div class="col-sm-1 col-md-6 col-lg-4 col-xl-4 mb-3" *ngFor="let material of materiales">

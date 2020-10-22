@@ -23,21 +23,30 @@ export class CatalogoComponent implements OnInit {
   hayContenido = false;
   cargando = true;
 
+  hayFiltros = false;
+
   constructor(
     public fs: AngularFirestore,
     public dialog: MatDialog
   ) {
-    fs.collectionGroup<Proveedor>('Proveedores').valueChanges().subscribe(proveedores => {
+    this.fs.collectionGroup<Proveedor>('Proveedores').valueChanges().subscribe(proveedores => {
       const nombreProveedores: string[] = proveedores.map(proveedor => proveedor.Nombre);
       this.proveedores = nombreProveedores.filter((v, i) => nombreProveedores.indexOf(v) === i);
     });
 
-    fs.collectionGroup<Proveedor>('Categorias').valueChanges().subscribe(categorias => {
+    this.fs.collectionGroup<Proveedor>('Categorias').valueChanges().subscribe(categorias => {
       const nombreCategorias: string[] = categorias.map(categoria => categoria.Nombre);
       this.categorias = nombreCategorias.filter((v, i) => nombreCategorias.indexOf(v) === i);
     });
+    this.reiniciarFiltros();
+  }
 
-    this.coleccionDeMateriales = fs.collection<Material>('Materiales');
+  ngOnInit(): void {
+  }
+
+  reiniciarFiltros(): void {
+    this.hayFiltros = false;
+    this.coleccionDeMateriales = this.fs.collection<Material>('Materiales');
     this.coleccionDeMateriales.valueChanges().subscribe(materiales => {
       if (materiales.length !== 0) {
         this.hayContenido = true;
@@ -50,7 +59,40 @@ export class CatalogoComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  filtrarPorCategoria(categoria: string): void {
+    this.cargando = true;
+    this.hayContenido = false;
+    this.hayFiltros = true;
+    this.coleccionDeMateriales = this.fs
+      .collection<Material>('Materiales', materiales => materiales.where('Categorias', 'array-contains', categoria));
+    this.coleccionDeMateriales.valueChanges().subscribe(materiales => {
+      if (materiales.length !== 0) {
+        this.hayContenido = true;
+      }
+      this.materiales = materiales;
+      this.materiales.forEach(materialDoc => {
+        console.log(materialDoc);
+      });
+      this.cargando = false;
+    });
+  }
+
+  filtrarPorProveedor(proveedor: string): void {
+    this.cargando = true;
+    this.hayContenido = false;
+    this.hayFiltros = true;
+    this.coleccionDeMateriales = this.fs
+      .collection<Material>('Materiales', materiales => materiales.where('Proveedores', 'array-contains', proveedor));
+    this.coleccionDeMateriales.valueChanges().subscribe(materiales => {
+      if (materiales.length !== 0) {
+        this.hayContenido = true;
+      }
+      this.materiales = materiales;
+      this.materiales.forEach(materialDoc => {
+        console.log(materialDoc);
+      });
+      this.cargando = false;
+    });
   }
 
   agregarMaterial(): void {
