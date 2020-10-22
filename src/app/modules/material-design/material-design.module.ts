@@ -28,6 +28,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatGridListModule,
     MatTabsModule,
     MatBadgeModule,
-    MatRadioModule
+    MatRadioModule,
+    MatChipsModule
   ],
   exports: [
     MatButtonModule,
@@ -91,7 +93,8 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatGridListModule,
     MatTabsModule,
     MatBadgeModule,
-    MatRadioModule
+    MatRadioModule,
+    MatChipsModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es-Es'}

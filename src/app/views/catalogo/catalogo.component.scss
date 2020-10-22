@@ -1,0 +1,22 @@
+.catalogo {
+  .container {
+    background-color: white !important;
+    border-radius: 1.5rem;
+    min-height: 95vh !important;
+  }
+
+  .card-producto {
+    max-width: 400px;
+  }
+
+  mat-card {
+    border-radius: 1.5rem !important;
+  }
+
+  .sticky {
+    position: fixed;
+    top: 0;
+    overflow: hidden;
+    z-index: 10;
+  }
+}

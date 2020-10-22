@@ -17,9 +17,13 @@ import {AngularFireAnalyticsModule} from '@angular/fire/analytics';
 // Importaciones de los environment variables
 import {environment} from '../environments/environment';
 
+// Importaciones de los componentes
+import {CatalogoComponent} from './views/catalogo/catalogo.component';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CatalogoComponent
   ],
   imports: [
     BrowserModule,
