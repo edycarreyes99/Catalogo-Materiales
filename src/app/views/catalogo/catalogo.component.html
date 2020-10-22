@@ -36,7 +36,8 @@
          *ngIf="!cargando && !hayContenido">
       <div class="mat-headline text-center">
         Aún no se ha agregado un material.
-        <button mat-stroked-button class="ml-auto d-block mx-auto mt-4" (click)="agregarMaterial()">Agregar material</button>
+        <button mat-stroked-button class="ml-auto d-block mx-auto mt-4" (click)="agregarMaterial()">Agregar material
+        </button>
       </div>
     </div>
 
@@ -71,14 +72,17 @@
             </div>
             <span class="mat-subheading-2 d-flex align-items-center">
               <mat-icon>layers</mat-icon>
-               <span class="ml-3">Categoria: <span class="badge badge-secondary"
-                                                   *ngFor="let categoria of material.Categorias">{{categoria}}</span>
+               <span class="ml-3">Categoria(s): <span class="badge badge-secondary"
+                                                      *ngFor="let categoria of material.Categorias">{{categoria}}</span>
                </span>
             </span>
             <span class="mat-subheading-2 d-flex align-items-center">
               <mat-icon>groups</mat-icon>
-               <span class="ml-3">Proveedor: <span class="ml-1"
-                                                   *ngFor="let proveedor of material.Proveedores">{{proveedor}}</span>
+               <span class="ml-3">Proveedor(es): <span class="ml-1"
+                                                       *ngFor="let proveedor of material.Proveedores; index as i">
+                 {{proveedor}} <span
+                 *ngIf="material.Proveedores.length > 1 && i+1 !== material.Proveedores.length">, </span>
+               </span>
                </span>
             </span>
             <span class="mat-subheading-2 d-flex align-items-center">

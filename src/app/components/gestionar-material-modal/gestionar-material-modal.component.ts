@@ -79,8 +79,8 @@ export class GestionarMaterialModalComponent implements OnInit {
       material.Nombre = this.nombre.value;
       material.UnidadMedida = this.unidadMedida.value;
       material.Proveedores = this.proveedoresSeleccionados.value;
-      material.Existencia = parseInt(this.existencia.value.toString(), 32);
-      material.Precio = parseFloat(this.precio.value.toString());
+      material.Existencia = Number(this.existencia);
+      material.Precio = Number(this.precio.value);
       material.Descripcion = this.descripcion.value;
       material.Categorias = this.categoriasSeleccionadas.value;
 
@@ -103,8 +103,8 @@ export class GestionarMaterialModalComponent implements OnInit {
       material.Nombre = this.nombre.value;
       material.UnidadMedida = this.unidadMedida.value;
       material.Proveedores = this.proveedoresSeleccionados.value;
-      material.Existencia = parseInt(this.existencia.value.toString(), 32);
-      material.Precio = parseFloat(this.precio.value.toString());
+      material.Existencia = Number(this.existencia.value);
+      material.Precio = Number(this.precio.value);
       material.Descripcion = this.descripcion.value;
       material.Categorias = this.categoriasSeleccionadas.value;
 

@@ -21,7 +21,6 @@ export class GestionarCategoriaModalComponent implements OnInit {
 
   constructor(
     public referenciaDialogo: MatDialogRef<GestionarCategoriaModalComponent>,
-    private databaseService: DatabaseService,
     @Inject(MAT_DIALOG_DATA) public dialogData: any
   ) {
   }
