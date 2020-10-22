@@ -24,7 +24,8 @@ import {DatabaseService} from './services/database/database.service';
 // Importaciones de los componentes
 import {CatalogoComponent} from './views/catalogo/catalogo.component';
 import {GestionarMaterialModalComponent} from './components/gestionar-material-modal/gestionar-material-modal.component';
-import { GestionarCategoriaModalComponent } from './components/gestionar-categoria-modal/gestionar-categoria-modal.component';
+import {GestionarCategoriaModalComponent} from './components/gestionar-categoria-modal/gestionar-categoria-modal.component';
+import {GestionarProveedorModalComponent} from './components/gestionar-proveedor-modal/gestionar-proveedor-modal.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { GestionarCategoriaModalComponent } from './components/gestionar-categor
     CatalogoComponent,
     GestionarMaterialModalComponent,
     GestionarMaterialModalComponent,
-    GestionarCategoriaModalComponent
+    GestionarCategoriaModalComponent,
+    GestionarProveedorModalComponent
   ],
   imports: [
     BrowserModule,
@@ -54,11 +56,13 @@ import { GestionarCategoriaModalComponent } from './components/gestionar-categor
   providers: [
     DatabaseService,
     GestionarMaterialModalComponent,
-    GestionarCategoriaModalComponent
+    GestionarCategoriaModalComponent,
+    GestionarProveedorModalComponent
   ],
   entryComponents: [
     GestionarMaterialModalComponent,
-    GestionarCategoriaModalComponent
+    GestionarCategoriaModalComponent,
+    GestionarProveedorModalComponent
   ],
   bootstrap: [AppComponent]
 })
