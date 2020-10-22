@@ -1,0 +1,17 @@
+.catalogo {
+  .container {
+    min-height: 95vh !important;
+  }
+
+  .card-producto {
+    max-width: 400px;
+  }
+
+  mat-card {
+    border-radius: 1.5rem !important;
+  }
+
+  .cargando {
+    min-height: 60vh !important;
+  }
+}

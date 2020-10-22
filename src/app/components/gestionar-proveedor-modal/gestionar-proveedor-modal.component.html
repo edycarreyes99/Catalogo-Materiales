@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>{{dialogData.tituloDialogo}}</h2>
+
+<mat-dialog-content class="mt-4">
+  <div *ngIf="dialogData.tipoGestion !== TYPE_ELIMINAR_PROVEEDOR">
+    <mat-form-field class="w-100 mt-3" appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input type="text" matInput placeholder="Ingrese el nombre del proveedor" [formControl]="nombre">
+      <mat-error *ngIf="nombre.hasError('required')">
+        Este campo es requerido.
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <span *ngIf="dialogData.tipoGestion === TYPE_ELIMINAR_PROVEEDOR">
+    ¿Estas seguro que deseas eliminar la proveedor?. ¡Esta acción no se puede deshacer!.
+  </span>
+</mat-dialog-content>
+
+<mat-dialog-actions class="float-right mt-4">
+  <button mat-button mat-dialog-close [color]="dialogData.tipoGestion !== TYPE_ELIMINAR_PROVEEDOR ?'warn' : null">
+    Cancelar
+  </button>
+
+  <button mat-button (click)="agregarProveedor()" *ngIf="dialogData.tipoGestion === TYPE_AGREGAR_PROVEEDOR">
+    Agregar
+  </button>
+
+  <button mat-button (click)="actualizarProveedor()" *ngIf="dialogData.tipoGestion === TYPE_EDITAR_PROVEEDOR">
+    Actualizar
+  </button>
+
+  <button mat-button (click)="eliminarProveedor()" *ngIf="dialogData.tipoGestion === TYPE_ELIMINAR_PROVEEDOR"
+          color="warn">
+    Eliminar
+  </button>
+
+</mat-dialog-actions>

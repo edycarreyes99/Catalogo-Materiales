@@ -1,0 +1,122 @@
+<h2 mat-dialog-title>{{dialogData.tituloDialogo}}</h2>
+
+<mat-dialog-content class="mt-4">
+  <div *ngIf="dialogData.tipoGestion !== TYPE_ELIMINAR_MATERIAL" class="row">
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+      <mat-form-field class="w-100 mt-3" appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input type="text" matInput placeholder="Ingrese el nombre del material" [formControl]="nombre">
+        <mat-error *ngIf="nombre.hasError('required')">
+          Este campo es requerido.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+      <mat-form-field class="w-100 h-50" appearance="fill">
+        <mat-label>Descripcion</mat-label>
+        <textarea type="text" matInput placeholder="Ingrese la descripcion del material"
+                  [formControl]="descripcion"></textarea>
+        <mat-error *ngIf="descripcion.hasError('required')">
+          Este campo es requerido.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Precio</mat-label>
+        <span matPrefix>C$ &nbsp;</span>
+        <input matInput type="number" placeholder="Ingrese el precio del material" [formControl]="precio">
+        <mat-error *ngIf="precio.hasError('required')">
+          Este campo es requerido.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Existencia</mat-label>
+        <input matInput type="number" placeholder="Ingrese las existencias del material" [formControl]="existencia">
+        <mat-error *ngIf="existencia.hasError('required')">
+          Este campo es requerido.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex align-items-center">
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Seleccione las categorias</mat-label>
+        <mat-select multiple [formControl]="categoriasSeleccionadas">
+          <mat-option *ngFor="let categoria of dialogData.categorias" [value]="categoria">
+            {{categoria}}
+          </mat-option>
+          <mat-option *ngIf="dialogData.categorias.length === 0">
+            No hay ninguna categoria, agrege una primero.
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="categoriasSeleccionadas.hasError('required')">
+          Este campo es requerido.
+        </mat-error>
+      </mat-form-field>
+      <button mat-icon-button matTooltip="Agregar categoria" class="mt-n3" (click)="agregarCategoria()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex align-items-center">
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Seleccione los proveedores</mat-label>
+        <mat-select multiple (selectionChange)="loguearDatos($event)"
+                    [formControl]="proveedoresSeleccionados">
+          <mat-option *ngFor="let proveedor of dialogData.proveedores" [value]="proveedor">
+            {{proveedor}}
+          </mat-option>
+          <mat-option *ngIf="dialogData.proveedores.length === 0">
+            No hay ningun proveedor, agrega uno primero.
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="proveedoresSeleccionados.hasError('required')">
+          Este campo es requerido.
+        </mat-error>
+      </mat-form-field>
+      <button mat-icon-button matTooltip="Agregar proveedor" class="mt-n3" (click)="agregarProveedor()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Unidad de medida</mat-label>
+        <input matInput type="text" placeholder="Ingrese la unindad de medida del material"
+               [formControl]="unidadMedida">
+        <mat-error *ngIf="unidadMedida.hasError('required')">
+          Este campo es requerido.
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <span *ngIf="dialogData.tipoGestion === TYPE_ELIMINAR_MATERIAL">
+    ¿Estas seguro que deseas eliminar el material?. ¡Esta acción no se puede deshacer!.
+  </span>
+</mat-dialog-content>
+
+<mat-dialog-actions class="float-right mt-4">
+  <button mat-button mat-dialog-close [color]="dialogData.tipoGestion !== TYPE_ELIMINAR_MATERIAL ?'warn' : null">
+    Cancelar
+  </button>
+
+  <button mat-button (click)="agregarMaterial()" *ngIf="dialogData.tipoGestion === TYPE_AGREGAR_MATERIAL">
+    Agregar
+  </button>
+
+  <button mat-button (click)="actualizarMaterial()" *ngIf="dialogData.tipoGestion === TYPE_EDITAR_MATERIAL">
+    Actualizar
+  </button>
+
+  <button mat-button (click)="eliminarMaterial()" *ngIf="dialogData.tipoGestion === TYPE_ELIMINAR_MATERIAL"
+          color="warn">
+    Eliminar
+  </button>
+
+</mat-dialog-actions>
