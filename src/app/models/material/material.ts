@@ -1,13 +1,12 @@
-import {Proveedor} from '../proveedor/proveedor';
-
 export class Material {
+  ID: string;
   Nombre: string;
   Descripcion: string;
   Precio: number;
-  Categoria: string[];
-  Proveedor: Proveedor[];
   UnidadMedida: string;
   Existencia: number;
+  Proveedores: string[];
+  Categorias: string[];
 
   constructor() {
   }

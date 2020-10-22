@@ -42,6 +42,7 @@ import {CatalogoComponent} from './views/catalogo/catalogo.component';
     AngularFireAnalyticsModule
   ],
   providers: [],
+  entryComponents: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

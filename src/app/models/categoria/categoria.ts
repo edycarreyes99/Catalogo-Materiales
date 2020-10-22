@@ -1,4 +1,4 @@
-export class Proveedor {
+export class Categoria {
   ID: string;
   Nombre: string;
 

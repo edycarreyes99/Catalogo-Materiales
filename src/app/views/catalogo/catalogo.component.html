@@ -8,34 +8,32 @@
     <mat-toolbar class="mb-4">
       <span class="mr-1">Filtrar por: </span>
       <button mat-icon-button aria-label="Filtrar por categoria" matTooltip="Filtrar por categoría."
-              [matMenuTriggerFor]="menuCategorias">
+              [matMenuTriggerFor]="menuCategorias" *ngIf="categorias.length > 0">
         <mat-icon>layers</mat-icon>
       </button>
 
       <mat-menu #menuCategorias="matMenu">
-        <button mat-menu-item>Item 1</button>
-        <button mat-menu-item>Item 2</button>
+        <button mat-menu-item *ngFor="let categoria of categorias">{{categoria}}</button>
       </mat-menu>
 
 
       <button mat-icon-button aria-label="Filtrar por proveedor" matTooltip="Filtrar por proveedor."
-              [matMenuTriggerFor]="menuProveedores">
+              [matMenuTriggerFor]="menuProveedores" *ngIf="proveedores.length > 0">
         <mat-icon>groups</mat-icon>
       </button>
       <button mat-button class="ml-auto">Agregar material</button>
     </mat-toolbar>
 
     <mat-menu #menuProveedores="matMenu">
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 2</button>
+      <button mat-menu-item *ngFor="let proveedor of proveedores">{{proveedor}}</button>
     </mat-menu>
 
     <div class="row">
-      <div class="col-sm-1 col-md-6 col-lg-4 col-xl-4 mb-3">
+      <div class="col-sm-1 col-md-6 col-lg-4 col-xl-4 mb-3" *ngFor="let material of materiales">
         <mat-card class="card-producto shadow">
           <mat-card-header>
-            <mat-card-title>Plato</mat-card-title>
-            <mat-card-subtitle>Plato de porcelana</mat-card-subtitle>
+            <mat-card-title>{{material.Nombre}}</mat-card-title>
+            <mat-card-subtitle>{{material.Descripcion}}</mat-card-subtitle>
             <mat-card-actions class="ml-auto">
               <button mat-icon-button matTooltip="Editar material.">
                 <mat-icon>edit</mat-icon>
@@ -50,28 +48,30 @@
             <div class="row">
               <div class="col-6 text-left">
                 <span class="mat-headline d-block">Precio: &nbsp;</span>
-                <span class="mat-title mt-n3 d-block">C$125</span>
+                <span class="mat-title mt-n3 d-block">C${{material.Precio}}</span>
               </div>
               <div class="col-6 text-left">
                 <span class="mat-headline d-block">Existencia:</span>
-                <span class="mat-title mt-n3 d-block">155</span>
+                <span class="mat-title mt-n3 d-block">{{material.Existencia}}</span>
               </div>
               <div class="col-6">
               </div>
             </div>
             <span class="mat-subheading-2 d-flex align-items-center">
               <mat-icon>layers</mat-icon>
-               <span class="ml-3">Categoria: <span class="badge badge-secondary">Cocina</span>
+               <span class="ml-3">Categoria: <span class="badge badge-secondary"
+                                                   *ngFor="let categoria of material.Categorias">{{categoria}}</span>
                </span>
             </span>
             <span class="mat-subheading-2 d-flex align-items-center">
               <mat-icon>groups</mat-icon>
-               <span class="ml-3">Proveedor: Compañia de importaciones de platos S.A
+               <span class="ml-3">Proveedor: <span class="ml-1"
+                                                   *ngFor="let proveedor of material.Proveedores">{{proveedor}}</span>
                </span>
             </span>
             <span class="mat-subheading-2 d-flex align-items-center">
               <mat-icon>straighten</mat-icon>
-               <span class="ml-3">Unidad de medida: Unidad
+               <span class="ml-3">Unidad de medida: {{material.UnidadMedida}}
                </span>
             </span>
           </mat-card-content>
