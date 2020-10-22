@@ -4,6 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ReactiveFormsModule} from '@angular/forms';
 
 // Importaciones de los modulos custom
 import {MaterialDesignModule} from './modules/material-design/material-design.module';
@@ -16,6 +17,9 @@ import {AngularFireAnalyticsModule} from '@angular/fire/analytics';
 
 // Importaciones de los environment variables
 import {environment} from '../environments/environment';
+
+// Importaciones de los servicios
+import {DatabaseService} from './services/database/database.service';
 
 // Importaciones de los componentes
 import {CatalogoComponent} from './views/catalogo/catalogo.component';
@@ -42,9 +46,11 @@ import {GestionarMaterialModalComponent} from './components/gestionar-material-m
       synchronizeTabs: true
     }),
     AngularFirePerformanceModule,
-    AngularFireAnalyticsModule
+    AngularFireAnalyticsModule,
+    ReactiveFormsModule
   ],
   providers: [
+    DatabaseService,
     GestionarMaterialModalComponent
   ],
   entryComponents: [

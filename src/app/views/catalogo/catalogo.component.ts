@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {Material} from '../../models/material/material';
 import {Proveedor} from '../../models/proveedor/proveedor';
+import {MatDialog} from '@angular/material/dialog';
+import {GestionarMaterialModalComponent} from '../../components/gestionar-material-modal/gestionar-material-modal.component';
 
 @Component({
   selector: 'app-catalogo',
@@ -18,7 +20,8 @@ export class CatalogoComponent implements OnInit {
   coleccionDeMateriales: AngularFirestoreCollection<Material>;
 
   constructor(
-    fs: AngularFirestore
+    public fs: AngularFirestore,
+    public dialog: MatDialog
   ) {
     fs.collectionGroup<Proveedor>('Proveedores').valueChanges().subscribe(proveedores => {
       const nombreProveedores: string[] = proveedores.map(proveedor => proveedor.Nombre);
@@ -42,4 +45,13 @@ export class CatalogoComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  agregarMaterial(): void {
+    const agregarMaterialModal = this.dialog.open(GestionarMaterialModalComponent, {
+      data: {
+        proveedores: this.proveedores,
+        categorias: this.categorias,
+        material: new Material()
+      }
+    });
+  }
 }

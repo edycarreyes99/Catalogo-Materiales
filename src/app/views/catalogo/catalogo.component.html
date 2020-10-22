@@ -21,7 +21,7 @@
               [matMenuTriggerFor]="menuProveedores" *ngIf="proveedores.length > 0">
         <mat-icon>groups</mat-icon>
       </button>
-      <button mat-button class="ml-auto">Agregar material</button>
+      <button mat-button class="ml-auto" (click)="agregarMaterial()">Agregar material</button>
     </mat-toolbar>
 
     <mat-menu #menuProveedores="matMenu">
