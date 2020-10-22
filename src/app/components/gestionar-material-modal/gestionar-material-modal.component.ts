@@ -79,7 +79,7 @@ export class GestionarMaterialModalComponent implements OnInit {
       material.Nombre = this.nombre.value;
       material.UnidadMedida = this.unidadMedida.value;
       material.Proveedores = this.proveedoresSeleccionados.value;
-      material.Existencia = Number(this.existencia);
+      material.Existencia = Number(this.existencia.value);
       material.Precio = Number(this.precio.value);
       material.Descripcion = this.descripcion.value;
       material.Categorias = this.categoriasSeleccionadas.value;

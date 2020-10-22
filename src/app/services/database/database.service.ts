@@ -92,14 +92,25 @@ export class DatabaseService {
   }
 
   async eliminarMaterial(material: Material): Promise<void> {
-    return new Promise(async (reject, resolve) => {
+    return new Promise(async (resolve, reject) => {
       const batch = this.fs.firestore.batch();
 
-      batch.delete(this.fs.collection('Materiales').doc(material.ID).ref);
+      this.fs.collection('Materiales').doc(material.ID).collection('Categorias').get().subscribe(categorias => {
+        categorias.forEach(categoria => {
+          batch.delete(categoria.ref);
+        });
+      });
+
+      this.fs.collection('Materiales').doc(material.ID).collection('Proveedores').get().subscribe(proveedores => {
+        proveedores.forEach(proveedor => {
+          batch.delete(proveedor.ref);
+        });
+      });
 
       await batch.commit().then(async () => {
-        console.log('Todas las categorias y los proveedores junto con el material se han eliminado correctemente de la base de datos');
-        resolve();
+        await this.fs.collection('Materiales').doc(material.ID).delete().then(() => {
+          resolve();
+        }).catch((e) => reject(e));
       }).catch((e) => reject(e));
     });
   }
