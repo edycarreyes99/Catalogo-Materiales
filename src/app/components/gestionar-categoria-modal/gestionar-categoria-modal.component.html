@@ -1,1 +1,36 @@
-<p>gestionar-categoria-modal works!</p>
+<h2 mat-dialog-title>{{dialogData.tituloDialogo}}</h2>
+
+<mat-dialog-content class="mt-4">
+  <div *ngIf="dialogData.tipoGestion !== TYPE_ELIMINAR_CATEGORIA">
+    <mat-form-field class="w-100 mt-3" appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input type="text" matInput placeholder="Ingrese el nombre de la categoria" [formControl]="nombre">
+      <mat-error *ngIf="nombre.hasError('required')">
+        Este campo es requerido.
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <span *ngIf="dialogData.tipoGestion === TYPE_ELIMINAR_CATEGORIA">
+    ¿Estas seguro que deseas eliminar la categoria?. ¡Esta acción no se puede deshacer!.
+  </span>
+</mat-dialog-content>
+
+<mat-dialog-actions class="float-right mt-4">
+  <button mat-button mat-dialog-close [color]="dialogData.tipoGestion !== TYPE_ELIMINAR_CATEGORIA ?'warn' : null">
+    Cancelar
+  </button>
+
+  <button mat-button (click)="agregarCategoria()" *ngIf="dialogData.tipoGestion === TYPE_AGREGAR_CATEGORIA">
+    Agregar
+  </button>
+
+  <button mat-button (click)="actualizarCategoria()" *ngIf="dialogData.tipoGestion === TYPE_EDITAR_CATEGORIA">
+    Actualizar
+  </button>
+
+  <button mat-button (click)="eliminarCategoria()" *ngIf="dialogData.tipoGestion === TYPE_ELIMINAR_CATEGORIA"
+          color="warn">
+    Eliminar
+  </button>
+
+</mat-dialog-actions>

@@ -1,10 +1,20 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatSelectChange} from '@angular/material/select';
 import {DatabaseService} from '../../services/database/database.service';
 import {Material} from '../../models/material/material';
-import {TYPE_AGREGAR_MATERIAL, TYPE_EDITAR_MATERIAL, TYPE_ELIMINAR_MATERIAL} from '../../types/modal-types';
+import {
+  TYPE_AGREGAR_CATEGORIA,
+  TYPE_AGREGAR_MATERIAL,
+  TYPE_AGREGAR_PROVEEDOR,
+  TYPE_EDITAR_MATERIAL,
+  TYPE_ELIMINAR_MATERIAL
+} from '../../types/modal-types';
+import {Categoria} from '../../models/categoria/categoria';
+import {GestionarCategoriaModalComponent} from '../gestionar-categoria-modal/gestionar-categoria-modal.component';
+import {GestionarProveedorModalComponent} from '../gestionar-proveedor-modal/gestionar-proveedor-modal.component';
+import {Proveedor} from '../../models/proveedor/proveedor';
 
 @Component({
   selector: 'app-gestionar-material-modal',
@@ -51,12 +61,12 @@ export class GestionarMaterialModalComponent implements OnInit {
   constructor(
     public referenciaDialogo: MatDialogRef<GestionarMaterialModalComponent>,
     private databaseService: DatabaseService,
-    @Inject(MAT_DIALOG_DATA) public dialogData: any
+    @Inject(MAT_DIALOG_DATA) public dialogData: any,
+    private dialog: MatDialog
   ) {
   }
 
   ngOnInit(): void {
-    console.log(this.dialogData.categorias);
   }
 
   loguearDatos($event: MatSelectChange): void {
@@ -120,6 +130,44 @@ export class GestionarMaterialModalComponent implements OnInit {
     }).catch((e) => {
       console.error(e);
       alert('Hubo un error al eliminar el material: ' + e);
+    });
+  }
+
+  agregarCategoria(): void {
+    let nuevaCategoria;
+    const agregarCategoriaDialog = this.dialog.open(GestionarCategoriaModalComponent, {
+      data: {
+        tituloDialogo: 'Agregar una nueva categoria',
+        tipoGestion: TYPE_AGREGAR_CATEGORIA,
+        categoria: new Categoria(),
+        categorias: this.dialogData.categorias
+      }
+    });
+    agregarCategoriaDialog.afterClosed().subscribe(result => {
+      nuevaCategoria = result;
+      if (nuevaCategoria.trim() !== '') {
+        console.log(nuevaCategoria);
+        this.dialogData.categorias.push(nuevaCategoria);
+      }
+    });
+  }
+
+  agregarProveedor(): void {
+    let nuevoProveedor;
+    const agregarProveedorDialog = this.dialog.open(GestionarProveedorModalComponent, {
+      data: {
+        tituloDialogo: 'Agregar un nuevo proveedor',
+        tipoGestion: TYPE_AGREGAR_PROVEEDOR,
+        proveedor: new Proveedor(),
+        proveedores: this.dialogData.proveedores
+      }
+    });
+    agregarProveedorDialog.afterClosed().subscribe(result => {
+      nuevoProveedor = result;
+      if (nuevoProveedor.trim() !== '') {
+        console.log(nuevoProveedor);
+        this.dialogData.proveedores.push(nuevoProveedor);
+      }
     });
   }
 }
