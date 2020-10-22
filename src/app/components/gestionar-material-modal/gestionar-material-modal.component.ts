@@ -52,6 +52,7 @@ export class GestionarMaterialModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.dialogData.categorias);
   }
 
   loguearDatos($event: MatSelectChange): void {
