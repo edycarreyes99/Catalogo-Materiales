@@ -19,11 +19,14 @@ import {environment} from '../environments/environment';
 
 // Importaciones de los componentes
 import {CatalogoComponent} from './views/catalogo/catalogo.component';
+import {GestionarMaterialModalComponent} from './components/gestionar-material-modal/gestionar-material-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CatalogoComponent
+    CatalogoComponent,
+    GestionarMaterialModalComponent,
+    GestionarMaterialModalComponent
   ],
   imports: [
     BrowserModule,
@@ -41,8 +44,12 @@ import {CatalogoComponent} from './views/catalogo/catalogo.component';
     AngularFirePerformanceModule,
     AngularFireAnalyticsModule
   ],
-  providers: [],
-  entryComponents: [],
+  providers: [
+    GestionarMaterialModalComponent
+  ],
+  entryComponents: [
+    GestionarMaterialModalComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
