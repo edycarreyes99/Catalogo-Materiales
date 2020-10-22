@@ -1,7 +1,5 @@
 .catalogo {
   .container {
-    background-color: white !important;
-    border-radius: 1.5rem;
     min-height: 95vh !important;
   }
 
@@ -13,10 +11,7 @@
     border-radius: 1.5rem !important;
   }
 
-  .sticky {
-    position: fixed;
-    top: 0;
-    overflow: hidden;
-    z-index: 10;
+  .cargando {
+    min-height: 60vh !important;
   }
 }

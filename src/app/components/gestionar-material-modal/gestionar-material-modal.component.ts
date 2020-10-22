@@ -119,7 +119,7 @@ export class GestionarMaterialModalComponent implements OnInit {
       this.referenciaDialogo.close();
     }).catch((e) => {
       console.error(e);
-      this.referenciaDialogo.close();
+      alert('Hubo un error al eliminar el material: ' + e);
     });
   }
 }

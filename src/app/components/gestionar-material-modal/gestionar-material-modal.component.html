@@ -44,32 +44,45 @@
       </mat-form-field>
     </div>
 
-    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex align-items-center">
       <mat-form-field class="w-100" appearance="fill">
         <mat-label>Seleccione las categorias</mat-label>
-        <mat-select multiple [formControl]="categoriasSeleccionadas">
+        <mat-select [multiple]="dialogData.categorias.length > 0" [formControl]="categoriasSeleccionadas">
           <mat-option *ngFor="let categoria of dialogData.categorias" [value]="categoria">
             {{categoria}}
+          </mat-option>
+          <mat-option *ngIf="dialogData.categorias.length === 0">
+            No hay ninguna categoria, agrege una primero.
           </mat-option>
         </mat-select>
         <mat-error *ngIf="categoriasSeleccionadas.hasError('required')">
           Este campo es requerido.
         </mat-error>
       </mat-form-field>
+      <button mat-icon-button matTooltip="Agregar categoria" class="mt-n3">
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
 
-    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex align-items-center">
       <mat-form-field class="w-100" appearance="fill">
         <mat-label>Seleccione los proveedores</mat-label>
-        <mat-select multiple (selectionChange)="loguearDatos($event)" [formControl]="proveedoresSeleccionados">
+        <mat-select [multiple]="dialogData.proveedores.length > 0" (selectionChange)="loguearDatos($event)"
+                    [formControl]="proveedoresSeleccionados">
           <mat-option *ngFor="let proveedor of dialogData.proveedores" [value]="proveedor">
             {{proveedor}}
+          </mat-option>
+          <mat-option *ngIf="dialogData.proveedores.length === 0">
+            No hay ningun proveedor, agrega uno primero.
           </mat-option>
         </mat-select>
         <mat-error *ngIf="proveedoresSeleccionados.hasError('required')">
           Este campo es requerido.
         </mat-error>
       </mat-form-field>
+      <button mat-icon-button matTooltip="Agregar proveedor" class="mt-n3">
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
 
     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">

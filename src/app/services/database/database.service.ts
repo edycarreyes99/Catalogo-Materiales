@@ -95,18 +95,6 @@ export class DatabaseService {
     return new Promise(async (reject, resolve) => {
       const batch = this.fs.firestore.batch();
 
-      await this.fs.collection('Materiales').doc(material.ID).collection('Categorias').get().subscribe(categorias => {
-        categorias.forEach(categoria => {
-          batch.delete(categoria.ref);
-        });
-      });
-
-      await this.fs.collection('Materiales').doc(material.ID).collection('Proveedores').get().subscribe(proveedores => {
-        proveedores.forEach(proveedor => {
-          batch.delete(proveedor.ref);
-        });
-      });
-
       batch.delete(this.fs.collection('Materiales').doc(material.ID).ref);
 
       await batch.commit().then(async () => {

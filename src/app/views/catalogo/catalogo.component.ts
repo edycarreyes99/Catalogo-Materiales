@@ -20,6 +20,9 @@ export class CatalogoComponent implements OnInit {
 
   coleccionDeMateriales: AngularFirestoreCollection<Material>;
 
+  hayContenido = false;
+  cargando = true;
+
   constructor(
     public fs: AngularFirestore,
     public dialog: MatDialog
@@ -36,10 +39,14 @@ export class CatalogoComponent implements OnInit {
 
     this.coleccionDeMateriales = fs.collection<Material>('Materiales');
     this.coleccionDeMateriales.valueChanges().subscribe(materiales => {
+      if (materiales.length !== 0) {
+        this.hayContenido = true;
+      }
       this.materiales = materiales;
       this.materiales.forEach(materialDoc => {
         console.log(materialDoc);
       });
+      this.cargando = false;
     });
   }
 
