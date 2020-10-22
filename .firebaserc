@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "catalogo-materiales": {
+      "hosting": {
+        "CatalogoMateriales": [
+          "catalogo-materiales"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "catalogo-materiales"
+  }
+}
