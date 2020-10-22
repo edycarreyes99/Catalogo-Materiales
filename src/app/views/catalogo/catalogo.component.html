@@ -35,10 +35,10 @@
             <mat-card-title>{{material.Nombre}}</mat-card-title>
             <mat-card-subtitle>{{material.Descripcion}}</mat-card-subtitle>
             <mat-card-actions class="ml-auto">
-              <button mat-icon-button matTooltip="Editar material.">
+              <button mat-icon-button matTooltip="Editar material." (click)="editarMaterial(material)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button color="warn" matTooltip="Eliminar material.">
+              <button mat-icon-button color="warn" matTooltip="Eliminar material." (click)="eliminarMaterial(material)">
                 <mat-icon>delete</mat-icon>
               </button>
             </mat-card-actions>

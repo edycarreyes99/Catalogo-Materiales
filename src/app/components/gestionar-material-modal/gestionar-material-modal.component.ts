@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatSelectChange} from '@angular/material/select';
 import {DatabaseService} from '../../services/database/database.service';
 import {Material} from '../../models/material/material';
+import {TYPE_AGREGAR_MATERIAL, TYPE_EDITAR_MATERIAL, TYPE_ELIMINAR_MATERIAL} from '../../types/modal-types';
 
 @Component({
   selector: 'app-gestionar-material-modal',
@@ -11,6 +12,9 @@ import {Material} from '../../models/material/material';
   styleUrls: ['./gestionar-material-modal.component.scss']
 })
 export class GestionarMaterialModalComponent implements OnInit {
+  TYPE_AGREGAR_MATERIAL = TYPE_AGREGAR_MATERIAL;
+  TYPE_EDITAR_MATERIAL = TYPE_EDITAR_MATERIAL;
+  TYPE_ELIMINAR_MATERIAL = TYPE_ELIMINAR_MATERIAL;
   nombre = new FormControl(this.dialogData.material !== undefined ? this.dialogData.material.Nombre : '', [
     Validators.required,
     Validators.minLength(4)
@@ -81,5 +85,41 @@ export class GestionarMaterialModalComponent implements OnInit {
     } else {
       alert('Todos los campos son requeridos');
     }
+  }
+
+  actualizarMaterial(): void {
+    if (this.materialFormControl.valid) {
+      const material: Material = this.dialogData.material;
+      material.Nombre = this.nombre.value;
+      material.UnidadMedida = this.unidadMedida.value;
+      material.Proveedores = this.proveedoresSeleccionados.value;
+      material.Existencia = parseInt(this.existencia.value.toString(), 32);
+      material.Precio = parseFloat(this.precio.value.toString());
+      material.Descripcion = this.descripcion.value;
+      material.Categorias = this.categoriasSeleccionadas.value;
+
+      this.databaseService.actualizarMaterial(material).then(() => {
+        console.log('El material', material.Nombre, 'se ha actualizado correctamente');
+        alert('El material ' + material.Nombre + ' se ha actualizado correctamente en la base de datos');
+        this.referenciaDialogo.close();
+      }).catch((e) => {
+        console.error(e);
+        alert('Hubo un error al actualizar el material: ' + e);
+      });
+    } else {
+      alert('Todos los campos son requeridos');
+    }
+  }
+
+  eliminarMaterial(): void {
+    const material: Material = this.dialogData.material;
+    this.databaseService.eliminarMaterial(material).then(() => {
+      console.log('El material', material.Nombre, 'se ha eliminado correctamente');
+      alert('El material ' + material.Nombre + ' se ha eliminado correctamente en la base de datos');
+      this.referenciaDialogo.close();
+    }).catch((e) => {
+      console.error(e);
+      this.referenciaDialogo.close();
+    });
   }
 }

@@ -1,6 +1,7 @@
-<h2 mat-dialog-title>Agregar un nuevo material</h2>
+<h2 mat-dialog-title>{{dialogData.tituloDialogo}}</h2>
+
 <mat-dialog-content class="mt-4">
-  <div class="row">
+  <div *ngIf="dialogData.tipoGestion !== TYPE_ELIMINAR_MATERIAL" class="row">
     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
       <mat-form-field class="w-100 mt-3" appearance="fill">
         <mat-label>Nombre</mat-label>
@@ -82,10 +83,27 @@
       </mat-form-field>
     </div>
   </div>
-
+  <span *ngIf="dialogData.tipoGestion === TYPE_ELIMINAR_MATERIAL">
+    ¿Estas seguro que deseas eliminar el material?. ¡Esta acción no se puede deshacer!.
+  </span>
 </mat-dialog-content>
+
 <mat-dialog-actions class="float-right mt-4">
-  <button mat-button mat-dialog-close color="warn">Cancelar</button>
-  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button (click)="agregarMaterial()">Agregar</button>
+  <button mat-button mat-dialog-close [color]="dialogData.tipoGestion !== TYPE_ELIMINAR_MATERIAL ?'warn' : null">
+    Cancelar
+  </button>
+
+  <button mat-button (click)="agregarMaterial()" *ngIf="dialogData.tipoGestion === TYPE_AGREGAR_MATERIAL">
+    Agregar
+  </button>
+
+  <button mat-button (click)="actualizarMaterial()" *ngIf="dialogData.tipoGestion === TYPE_EDITAR_MATERIAL">
+    Actualizar
+  </button>
+
+  <button mat-button (click)="eliminarMaterial()" *ngIf="dialogData.tipoGestion === TYPE_ELIMINAR_MATERIAL"
+          color="warn">
+    Eliminar
+  </button>
+
 </mat-dialog-actions>

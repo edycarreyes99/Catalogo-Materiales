@@ -4,6 +4,7 @@ import {Material} from '../../models/material/material';
 import {Proveedor} from '../../models/proveedor/proveedor';
 import {MatDialog} from '@angular/material/dialog';
 import {GestionarMaterialModalComponent} from '../../components/gestionar-material-modal/gestionar-material-modal.component';
+import {TYPE_AGREGAR_MATERIAL, TYPE_EDITAR_MATERIAL, TYPE_ELIMINAR_MATERIAL} from '../../types/modal-types';
 
 @Component({
   selector: 'app-catalogo',
@@ -46,11 +47,35 @@ export class CatalogoComponent implements OnInit {
   }
 
   agregarMaterial(): void {
-    const agregarMaterialModal = this.dialog.open(GestionarMaterialModalComponent, {
+    this.dialog.open(GestionarMaterialModalComponent, {
       data: {
         proveedores: this.proveedores,
         categorias: this.categorias,
+        tituloDialogo: 'Agregar un nuevo material',
+        tipoGestion: TYPE_AGREGAR_MATERIAL,
         material: new Material()
+      }
+    });
+  }
+
+  editarMaterial(material: Material): void {
+    this.dialog.open(GestionarMaterialModalComponent, {
+      data: {
+        proveedores: this.proveedores,
+        categorias: this.categorias,
+        tituloDialogo: 'Editar material: ' + material.Nombre,
+        tipoGestion: TYPE_EDITAR_MATERIAL,
+        material
+      }
+    });
+  }
+
+  eliminarMaterial(material: Material): void {
+    this.dialog.open(GestionarMaterialModalComponent, {
+      data: {
+        tituloDialogo: 'Eliminar material: ' + material.Nombre,
+        tipoGestion: TYPE_ELIMINAR_MATERIAL,
+        material
       }
     });
   }
